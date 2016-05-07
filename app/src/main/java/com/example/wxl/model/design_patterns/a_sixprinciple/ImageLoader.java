@@ -16,25 +16,14 @@ import java.util.concurrent.Executors;
  * @since 1.0
  */
 public class ImageLoader {
-    ImageCache mImageCache = new ImageCache();
-    private DiskCache mDiskCache = new DiskCache();
-    private DoubleCache mDoubleCache = new DoubleCache();
-
-    private boolean isUseDiskCache = false;
-    private boolean isUseMemoryCache = false;
-    private boolean isUseDoubleCache = false;
+    private IImageCache mImageCache;
 
     ExecutorService mExecutorService = Executors
             .newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
 
     public void displayImage(final String url, final ImageView imageView) {
-        Bitmap bitMap = null;
-        if (isUseDoubleCache) {
-            bitMap = mDoubleCache.getBitMap(url);
-        } else if (isUseDiskCache) {
-            bitMap = mDiskCache.getBitMap(url);
-        }
+        Bitmap bitMap = mImageCache.getBitMap(url);
         if (bitMap != null) {
             imageView.setImageBitmap(bitMap);
             return;
@@ -47,9 +36,7 @@ public class ImageLoader {
                 if (bitMap == null) return;
                 if (imageView.getTag().equals(url)) {
                     imageView.setImageBitmap(bitMap);
-//                    mImageCache.putBitMap(url, bitMap);
-//                    mDiskCache.putBitMap(url, bitMap);
-                    mDoubleCache.putBitMap(url, bitMap);
+                    mImageCache.putBitMap(url, bitMap);
                 }
             }
         });
@@ -68,7 +55,7 @@ public class ImageLoader {
         return null;
     }
 
-    public void setUseDiskCache(boolean useDiskCache) {
-        this.isUseDiskCache = useDiskCache;
+    public void setImageCache(IImageCache imageCache){
+        this.mImageCache = imageCache;
     }
 }

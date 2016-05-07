@@ -15,7 +15,7 @@ import java.io.IOException;
  *
  * 磁盘缓存内
  */
-public class DiskCache {
+public class DiskCache implements IImageCache{
     private String mCacheDir = "sdcard/cache/";
 
     public Bitmap getBitMap(String url) {

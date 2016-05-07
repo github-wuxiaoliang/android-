@@ -10,10 +10,11 @@ import android.graphics.Bitmap;
  * <p/>
  * 双缓存内
  */
-public class DoubleCache {
+public class DoubleCache implements IImageCache {
     private DiskCache mDiskCache = new DiskCache();
     private ImageCache mImageCache = new ImageCache();
 
+    @Override
     public Bitmap getBitMap(String url) {
         Bitmap bitMap = mImageCache.getBitMap(url);
         if (bitMap == null) {
@@ -22,6 +23,7 @@ public class DoubleCache {
         return bitMap;
     }
 
+    @Override
     public void putBitMap(String url, Bitmap bitmap) {
         mDiskCache.putBitMap(url, bitmap);
         mImageCache.putBitMap(url, bitmap);
