@@ -12,6 +12,8 @@ import java.io.IOException;
  *
  * @author wuxiaoliang
  * @since 1.0
+ *
+ * 磁盘缓存内
  */
 public class DiskCache {
     private String mCacheDir = "sdcard/cache/";

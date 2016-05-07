@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.util.LruCache;
 
 /**
- * Created on 2016/5/7.
+ * Created on 2016/5/7. 内存缓存类
  *
  * @author wuxiaoliang
  * @since 1.0
